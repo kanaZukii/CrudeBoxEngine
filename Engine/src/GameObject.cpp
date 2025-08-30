@@ -17,3 +17,11 @@ void GameObject::generateID(){
         ID_Count++;
     }
 }
+
+void GameObject::initComponents(){
+    for( Component* comp : components) comp->init();
+}
+
+void GameObject::update(float deltaTime){
+    for( Component* comp : components) comp->update(deltaTime);
+}

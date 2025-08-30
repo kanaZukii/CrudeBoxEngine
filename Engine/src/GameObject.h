@@ -17,6 +17,12 @@ class GameObject {
 
         ~GameObject();
 
+        void update(float deltaTime);
+
+        int getUID() { return UID; }
+
+        bool isDead() { return dead; }
+
         const std::vector<Component*>& componentList() const { return components;}
 
         Component* addComponent(Component* comp) {
@@ -26,6 +32,8 @@ class GameObject {
             comp->init();
             return comp;
         }
+
+        void initComponents();
 
         // Get a component of type T
         template<typename T>

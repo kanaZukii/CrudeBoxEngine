@@ -6,6 +6,7 @@
 #include "renderer/Camera.h"
 #include "renderer/Shader.h"
 #include "components/Graphics.h"
+#include "RenderBatch.h"
 
 Shader* Renderer::currentShader = nullptr;
 Camera* Renderer::sceneCamera = nullptr;

@@ -4,11 +4,9 @@
 #include <iostream>
 
 #include "window/Window.h"
-#include "window/InputListener.h"
 #include "renderer/Shader.h"
 #include "scene/Scene.h"
 #include "renderer/Renderer.h"
-#include <vector>
 
 namespace CrudeBox {
 
@@ -42,15 +40,18 @@ namespace CrudeBox {
 
     void init() {
         window = new Window(title, width, height);
-        
-        scene = new Scene();
 
         shader = new Shader("assets/default.glsl");
         shader->compile();
 
         renderer = new Renderer(1000);
-        renderer->setCamera(scene->getCamera());
         renderer->bindShader(*shader);
+
+        scene = new Scene(*renderer);
+
+        if(scene != nullptr){
+            scene->initObjects();
+        }
     }
 
     bool isRunning(){
@@ -58,22 +59,14 @@ namespace CrudeBox {
     }
 
     void update(float deltaTime) {
-        // Example: move camera with arrow keys
-        if(KeyListener::isKeyPressed(GLFW_KEY_UP))
-            scene->getCamera().addPosition(Vector2(0.0f, 2.0f));
-        if(KeyListener::isKeyPressed(GLFW_KEY_DOWN))
-            scene->getCamera().addPosition(Vector2(0.0f, -2.0f));
-        if(KeyListener::isKeyPressed(GLFW_KEY_LEFT))
-            scene->getCamera().addPosition(Vector2(-2.0f, 0.0f));
-        if(KeyListener::isKeyPressed(GLFW_KEY_RIGHT))
-            scene->getCamera().addPosition(Vector2(2.0f, 0.0f));
+        scene->update(deltaTime);
     }
 
     void beginFrame(){
         window->beginFrame();
         shader->use();
-
-        renderer->render();
+        
+        scene->render();
     }
         
     void endFrame(){

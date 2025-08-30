@@ -2,12 +2,11 @@
 
 #include <vector>
 
-#include "RenderBatch.h"
-
 class Shader;
 class Camera;
 class GameObject;
 class SpriteRenderer;
+class RenderBatch;
 
 class Renderer{
     public:
