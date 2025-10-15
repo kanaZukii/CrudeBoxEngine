@@ -47,7 +47,7 @@ namespace CrudeBox {
         renderer = new Renderer(1000);
         renderer->bindShader(*shader);
 
-        scene = new Scene(*renderer);
+        
 
         if(scene != nullptr){
             scene->initObjects();
@@ -59,14 +59,20 @@ namespace CrudeBox {
     }
 
     void update(float deltaTime) {
-        scene->update(deltaTime);
+        if(scene != nullptr){
+            scene->update(deltaTime);
+        }
     }
 
     void beginFrame(){
-        window->beginFrame();
+        window->beginFrame(); 
+    }
+
+    void render(){
         shader->use();
-        
-        scene->render();
+        if(scene != nullptr){
+            scene->render();
+        }
     }
         
     void endFrame(){

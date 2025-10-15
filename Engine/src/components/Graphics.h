@@ -43,6 +43,7 @@ class SpriteRenderer : public Component{
     public:
         SpriteRenderer();
         void setSprite(Sprite& sprite);
+        void setColor(Vector4& color);
         const Vector4 getColor() const { return colors; }
         std::array<Vector2, 4>& getTexCoords() { return sprite->texCoords; }
         Sprite* getSprite() const { return sprite; }

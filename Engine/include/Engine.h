@@ -9,6 +9,7 @@ namespace CrudeBox {
     bool isRunning();
     void update(float deltaTime);
     void beginFrame();
+    void render();
     void endFrame();
     void terminate();
 }

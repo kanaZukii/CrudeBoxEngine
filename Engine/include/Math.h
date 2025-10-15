@@ -492,3 +492,25 @@ struct Matrix4
     //     return *this;
     // }
 };
+
+inline float degToRadians(float angleDeg){
+    return angleDeg * (M_PI / 180.0f);
+}
+
+inline void rotateVec2(Vector2& vec2, float angle, const Vector2& center){
+    float x = vec2.x - center.x;
+    float y = vec2.y - center.y;
+
+    float radians = degToRadians(angle);
+    float sin = std::sin(radians);
+    float cos = std::cos(radians);
+
+    float xPrime = (x * cos) - (y * sin);
+    float yPrime = (x * sin) + (y * cos);
+
+    xPrime += center.x;
+    yPrime += center.y;
+
+    vec2.x = xPrime;
+    vec2.y = yPrime;
+}

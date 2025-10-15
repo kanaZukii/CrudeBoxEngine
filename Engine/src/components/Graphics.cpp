@@ -64,6 +64,10 @@ void SpriteRenderer::setSprite(Sprite& sprite){
     setDirty();
 }
 
+void SpriteRenderer::setColor(Vector4& color){
+    this->colors = color;
+}
+
 void SpriteRenderer::setDirty(){
     dirty = true;
 }

@@ -42,6 +42,8 @@ int main() {
         CrudeBox::beginFrame();
         CrudeBox::update(deltaTime);
 
+        CrudeBox::render();
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
