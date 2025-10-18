@@ -6,6 +6,12 @@
 #include "Shader.h"
 #include "Camera.h"
 
+unsigned int DebugRenderer::VAO = 0;
+unsigned int DebugRenderer::VBO = 0;
+
+std::vector<float> DebugRenderer::vertexArr;
+std::vector<Line2D> DebugRenderer::lines;
+
 int DebugRenderer::MAX_LINES = 500;
 bool DebugRenderer::started = false;
 Shader* DebugRenderer::shader = nullptr;

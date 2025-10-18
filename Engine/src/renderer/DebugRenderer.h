@@ -29,7 +29,7 @@ struct Line2D{
 class DebugRenderer{
     public:
     static void init();
-    static void bindShader(Shader& shader) { DebugRenderer::shader = &shader;}
+    static void bindShader(Shader &shader) { DebugRenderer::shader = &shader;}
     static void beginFrame();
     static void render(Camera &camera);
     static void addLine(Vector2 startPos, Vector2 endPos);

@@ -7,6 +7,7 @@
 #include "renderer/Shader.h"
 #include "scene/Scene.h"
 #include "renderer/Renderer.h"
+#include "renderer/DebugRenderer.h"
 
 namespace CrudeBox {
 
@@ -14,9 +15,15 @@ namespace CrudeBox {
     static const char* title;
     static int width, height;
 
-    static Shader* shader = nullptr;
-    static Scene* scene = nullptr;
+    static bool debug = false;
+
+    static Shader* gameShader = nullptr;
+    static Shader* debugShader = nullptr;
+
     static Renderer* renderer = nullptr;
+    static DebugRenderer* debugRenderer = nullptr;
+
+    static Scene* scene = nullptr;
 
     static Scene* getCurrentScene(){
         return scene;
@@ -41,13 +48,16 @@ namespace CrudeBox {
     void init() {
         window = new Window(title, width, height);
 
-        shader = new Shader("assets/default.glsl");
-        shader->compile();
+        gameShader = new Shader("assets/default.glsl");
+        gameShader->compile();
+
+        debugShader = new Shader("assets/debug.glsl");
+        debugShader->compile();
 
         renderer = new Renderer(1000);
-        renderer->bindShader(*shader);
 
-        
+        debugRenderer = new DebugRenderer();
+        debugRenderer->bindShader(*debugShader);
 
         if(scene != nullptr){
             scene->initObjects();
@@ -58,6 +68,10 @@ namespace CrudeBox {
         return !window->windowHasClosed();
     }
 
+    void setDebug(bool value){
+        debug = value;
+    }
+
     void update(float deltaTime) {
         if(scene != nullptr){
             scene->update(deltaTime);
@@ -66,10 +80,16 @@ namespace CrudeBox {
 
     void beginFrame(){
         window->beginFrame(); 
+        if(debug) {
+            debugRenderer->beginFrame();
+        }
     }
 
     void render(){
-        shader->use();
+
+        if(debug) debugRenderer->render(scene->getCamera());
+
+        renderer->bindShader(*gameShader);
         if(scene != nullptr){
             scene->render();
         }
@@ -80,7 +100,7 @@ namespace CrudeBox {
     }
 
     void terminate() {
-        shader->unuse();
+        gameShader->unuse();
         window->terminate();
     }
 
